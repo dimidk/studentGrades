@@ -29,9 +29,8 @@ public class DataServlet extends HttpServlet {
 
         std = ConfigDatabase.getStudentDAO();
 
-        float max =0;
-        float min = 0;
-        float avg = 0;
+        float max =0,min = 0,avg = 0;
+       
         try {
             max = std.getMaxCourse(course);
             min = std.getMinCourse(course);
@@ -45,9 +44,6 @@ public class DataServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
 
         RequestDispatcher view = request.getRequestDispatcher("allGrades.jsp");
         view.forward(request,response);
