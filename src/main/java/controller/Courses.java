@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 public class Courses {
     private  int id;

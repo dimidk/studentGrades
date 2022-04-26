@@ -2,9 +2,9 @@
          session="false"
    import="java.lang.System" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="model.StudentCourses" %>
+<%@ page import="controller.StudentCourses" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.StudentGrades" %>
+<%@ page import="controller.StudentGrades" %>
 
 <!DOCTYPE html>
 <html>
