@@ -1,9 +1,5 @@
 package controller;
 
-//import model.ConfigDatabase;
-//import model.StudentDAO;
-//import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +12,6 @@ import java.sql.SQLException;
 @WebServlet(name = "DataServlet", urlPatterns = "/data-servlet")
 public class DataServlet extends HttpServlet {
 
- //   @Autowired
     private StudentDAO std;
 
     public DataServlet(){}
@@ -34,19 +29,24 @@ public class DataServlet extends HttpServlet {
 
         std = ConfigDatabase.getStudentDAO();
 
-        float max = std.getMaxCourse(course);
-        float min = std.getMinCourse(course);
+        float max =0;
+        float min = 0;
         float avg = 0;
         try {
+            max = std.getMaxCourse(course);
+            min = std.getMinCourse(course);
             avg = std.getAvgCourse(course);
+
+            request.setAttribute("course",course);
+            request.setAttribute("max",max);
+            request.setAttribute("min",min);
+            request.setAttribute("avg",avg);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        request.setAttribute("course",course);
-        request.setAttribute("max",max);
-        request.setAttribute("min",min);
-        request.setAttribute("avg",avg);
+
 
 
         RequestDispatcher view = request.getRequestDispatcher("allGrades.jsp");

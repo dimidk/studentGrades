@@ -1,10 +1,5 @@
 package controller;
 
-//import model.*;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.jdbc.core.JdbcTemplate;
-//import org.springframework.jdbc.core.RowMapper;
-
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.*;
@@ -13,13 +8,9 @@ import java.util.List;
 
 public class StudentService implements StudentDAO {
 
-    //@Autowired
-    //private final JdbcTemplate jdbc;
     private DataSource ds;
 
     public StudentService(DataSource dataSource) throws IOException {
-
-        //this.jdbc = new JdbcTemplate(dataSource);
         this.ds = dataSource;
     }
 
@@ -38,7 +29,6 @@ public class StudentService implements StudentDAO {
             std.setFullName(rs.getString("fullname"));
         }
 
-       //std = jdbc.queryForObject("select * from student where fullname = ? ", new studMapper(), name.trim());
        return std;
 
     }
@@ -102,7 +92,7 @@ public class StudentService implements StudentDAO {
         pstmt.setString(1,course);
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()){
-            avgGrade = rs.getInt("avgGrade");
+            avgGrade = rs.getFloat("avgGrade");
         }
 
         return avgGrade;
@@ -110,106 +100,41 @@ public class StudentService implements StudentDAO {
     }
 
     @Override
-    public float getMaxCourse(String course) {
-        return 0;
-    }
+    public float getMaxCourse(String course) throws SQLException {
 
-    @Override
-    public float getMinCourse(String course) {
-        return 0;
-    }
+        float maxGrade = 0;
 
-    /*@Override
-    public List<StudentCourses> getStudCourses(int id) {
+        Connection con = ds.getConnection();
+        String sql = "select max(grade) as maxGrade from studentGrades inner join courses on" +
+                " studentGrades.courseid = courses.id and courses.coursename = ?";
+        PreparedStatement pstmt = con.prepareCall(sql);
+        pstmt.setString(1,course);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()){
+            maxGrade = rs.getFloat("maxGrade");
+        }
 
-        List<StudentCourses> stdCourses;
-
-        stdCourses = jdbc.query("select studentCourses.studid,courses.coursename " +
-                "from studentCourses inner join courses on courses.id = studentCourses.courseid "
-                +  " and studentCourses.studid = ?", new studCoursesMapper(),id);
-
-        return stdCourses;
-    }
-
-    @Override
-    public List<StudentGrades> getGrades(int id) {
-
-        List<StudentGrades> stdGrades;
-
-        stdGrades =  jdbc.query("select studentGrades.studid,courses.coursename,studentGrades.grade " +
-                        "from studentGrades inner join courses on courses.id = studentGrades.courseid "
-                        +  " and studentGrades.studid = ?", new studGradesMapper(),id);
-
-        return stdGrades;
-    }
-
-    @Override
-    public float getAvgCourse(String course) {
-
-        float avgGrade;
-
-        avgGrade = jdbc.queryForObject("select avg(grade) from studentGrades inner join courses on" +
-                " studentGrades.courseid = courses.id and courses.coursename = ?",Float.class,course);
-        return avgGrade;
-    }
-
-    @Override
-    public float getMaxCourse(String course) {
-
-        float maxGrade;
-
-        maxGrade = jdbc.queryForObject("select max(grade) from studentGrades inner join courses on" +
-                " studentGrades.courseid = courses.id and courses.coursename = ?",Float.class,course);
         return maxGrade;
     }
 
     @Override
-    public float getMinCourse(String course) {
+    public float getMinCourse(String course) throws SQLException {
 
-        float minGrade;
+        float minGrade = 0;
 
-        minGrade = jdbc.queryForObject("select min(grade) from studentGrades inner join courses on" +
-                " studentGrades.courseid = courses.id and courses.coursename = ?",Float.class,course);
+        Connection con = ds.getConnection();
+        String sql = "select min(grade) as minGrade from studentGrades inner join courses on" +
+                " studentGrades.courseid = courses.id and courses.coursename = ?";
+        PreparedStatement pstmt = con.prepareCall(sql);
+        pstmt.setString(1,course);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()){
+            minGrade = rs.getFloat("minGrade");
+        }
+
         return minGrade;
+
     }
-
-    private static final class studMapper implements RowMapper<Student> {
-
-        @Override
-        public Student mapRow(ResultSet rs, int index) throws SQLException {
-            Student td = new Student();
-            td.setSemester(rs.getInt("semester"));
-            td.setCardID(rs.getString("cardID"));
-            td.setFullName(rs.getString("fullName"));
-            td.setId(rs.getInt("id"));
-            return td;
-        }
-    }
-
-    private static final class studCoursesMapper implements RowMapper<StudentCourses> {
-
-        @Override
-        public StudentCourses mapRow(ResultSet rs, int index) throws SQLException {
-            StudentCourses td = new StudentCourses();
-            td.setCourseName(rs.getString("coursename"));
-            td.setStudentId(rs.getInt("studid"));
-            return td;
-        }
-    }
-
-    private static final class studGradesMapper implements RowMapper<StudentGrades> {
-
-        @Override
-        public StudentGrades mapRow(ResultSet rs, int index) throws SQLException {
-            StudentGrades td = new StudentGrades();
-            td.setGrade(rs.getInt("grade"));
-            td.setStudentId(rs.getInt("studentId"));
-            td.setCourseName(rs.getString("coursename"));
-
-            return td;
-        }
-    }*/
-
 }
 
 

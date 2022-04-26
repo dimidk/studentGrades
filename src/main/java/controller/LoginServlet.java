@@ -19,7 +19,6 @@ import java.util.List;
 @WebServlet(name = "LoginServlet", urlPatterns = "/login-servlet")
 public class LoginServlet extends HttpServlet {
 
- //   @Autowired
     private StudentDAO std;
 
     private String message;
@@ -42,15 +41,14 @@ public class LoginServlet extends HttpServlet {
         String studentId ="";
         HttpSession session  = request.getSession();
 
-        int i = -1;
 
-            std = ConfigDatabase.getStudentDAO();
+        std = ConfigDatabase.getStudentDAO();
 
-            studentId = request.getParameter("studentId");
+        studentId = request.getParameter("studentId");
 
 
-            String name;
-            String message;
+        String name;
+        String message;
 
         Student stud = null;
         try {
@@ -71,14 +69,8 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        //    session.setAttribute("studGrades",studGrades);
-        //    session.setAttribute("studentId",studentId);
-
-
-
-
-            RequestDispatcher view = request.getRequestDispatcher("studCourses.jsp");
-            view.forward(request,response);
+        RequestDispatcher view = request.getRequestDispatcher("studCourses.jsp");
+        view.forward(request,response);
 
     }
 
