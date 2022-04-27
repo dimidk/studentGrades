@@ -30,7 +30,7 @@ public class DataServlet extends HttpServlet {
         std = ConfigDatabase.getStudentDAO();
 
         float max =0,min = 0,avg = 0;
-       
+
         try {
             max = std.getMaxCourse(course);
             min = std.getMinCourse(course);

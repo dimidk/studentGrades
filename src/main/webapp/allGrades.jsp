@@ -40,5 +40,7 @@
 <hr>
 
 <p>Ola good!!</p>
+<p><a href="studCourses.jsp">previous</a></p>
+<p><a href="logout.jsp">logout</a></p>
 </body>
 </html>

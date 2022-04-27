@@ -24,9 +24,16 @@ public class StudentService implements StudentDAO {
         PreparedStatement pstmt = con.prepareCall(sql);
         pstmt.setString(1,name);
         ResultSet rs = pstmt.executeQuery();
-        while (rs.next()){
-            std.setId(rs.getInt("id"));
-            std.setFullName(rs.getString("fullname"));
+        if (!rs.next() ) {
+            std.setId(-1);
+            std.setFullName("User not exists");
+        }
+        else {
+           // while (rs.next()){
+                std.setId(rs.getInt("id"));
+                std.setFullName(rs.getString("fullname"));
+
+            //}
         }
 
        return std;

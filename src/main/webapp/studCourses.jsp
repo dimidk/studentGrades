@@ -51,5 +51,7 @@ In order to see the max, min , avg of a course, please give the name:
     <input type="submit" value="Submit" />
 </form>
 <p>Ola good!!</p>
+
+<p><a href="logout.jsp">logout</a></p>
 </body>
 </html>
