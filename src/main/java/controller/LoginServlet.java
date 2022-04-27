@@ -41,16 +41,12 @@ public class LoginServlet extends HttpServlet {
         String studentId ="";
         HttpSession session  = request.getSession();
 
-
         std = ConfigDatabase.getStudentDAO();
-
         studentId = request.getParameter("studentId");
 
-        System.out.println("checking for " + studentId);
+        //System.out.println("checking for " + studentId);
 
         String name;
-        String message;
-
         Student stud = null;
         try {
             stud = std.isValidUser(studentId);
@@ -63,7 +59,6 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("name", stud.getFullName());
                 List<StudentCourses> studCourses = std.getStudCourses(stud.getId());
                 List<StudentGrades> studGrades = std.getGrades(stud.getId());
-
 
                 request.setAttribute("name",stud.getFullName());
                 request.setAttribute("studCourses",studCourses);

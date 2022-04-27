@@ -29,15 +29,11 @@ public class StudentService implements StudentDAO {
             std.setFullName("User not exists");
         }
         else {
-           // while (rs.next()){
-                std.setId(rs.getInt("id"));
-                std.setFullName(rs.getString("fullname"));
-
-            //}
+            std.setId(rs.getInt("id"));
+            std.setFullName(rs.getString("fullname"));
         }
 
        return std;
-
     }
 
     @Override
