@@ -14,26 +14,57 @@ public class StudentService implements StudentDAO {
         this.ds = dataSource;
     }
 
-    public Student isValidUser(String name) throws SQLException {
+   // public Student isValidUser(String name) throws SQLException {
+   public Users isValidUser(String name,String passwd) throws SQLException {
 
         System.out.println("i am in isValideUser");
 
-        Student std = new Student();
+        //Student std = new Student();
+        Users std = new Users();
         Connection con = ds.getConnection();
-        String sql = "select * from student where fullname = ?";
+        String sql = "select * from users where username = ? and password = ?";
         PreparedStatement pstmt = con.prepareCall(sql);
         pstmt.setString(1,name);
+        pstmt.setString(2,passwd);
         ResultSet rs = pstmt.executeQuery();
         if (!rs.next() ) {
-            std.setId(-1);
-            std.setFullName("User not exists");
+            std.setUsername("-1");
+            std.setPassword("-1");
+            //std.setId(-1);
+            //std.setFullName("User not exists");
         }
         else {
-            std.setId(rs.getInt("id"));
-            std.setFullName(rs.getString("fullname"));
+            std.setUsername(rs.getString("username"));
+            std.setPassword(rs.getString("password"));
+            std.setEnabled(rs.getBoolean("enabled"));
+            //std.setId(rs.getInt("id"));
+            //std.setFullName(rs.getString("fullname"));
         }
 
        return std;
+    }
+
+    @Override
+    public Student getAuthenticatedUser(String username) throws SQLException {
+
+        Student std = new Student();
+
+        Connection con = ds.getConnection();
+        String sql = "select * from student where username = ?";
+        System.out.println(username);
+        PreparedStatement pstmt = con.prepareCall(sql);
+        pstmt.setString(1,username);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()){
+            std.setFullName(rs.getString("fullname"));
+            std.setId(rs.getInt("id"));
+            std.setCardID(rs.getString("cardid"));
+            std.setSemester(rs.getInt("semester"));
+            std.setUsername(rs.getString("username"));
+        }
+
+        return std;
     }
 
     @Override

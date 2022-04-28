@@ -16,8 +16,7 @@
 <form action="login-servlet" method="post">
     <label>Student</label>
     <input type = "text" id = "studentId" name = "studentId" value="test"></input><br><br>
-    <!--label id = "passwdLabel">Password</label>
-    <input type = "password" id="passwdId" name = "passwdId" value="test"></input --><br><br>
+    <input type = "password" id="passwd" name = "passwd" value="test"></input><br><br>
         <input type="submit" value="Submit" />
 </form>
 </body>

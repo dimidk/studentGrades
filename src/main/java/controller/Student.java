@@ -4,8 +4,17 @@ public class Student {
 
     private  int id;
     private String fullName;
+    private String username;
     private String cardID;
     private int semester;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getFullName() {
         return fullName;

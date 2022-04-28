@@ -11,8 +11,8 @@ public class ConfigDatabase {
 
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUrl("jdbc:mysql://localhost:3306/GradesDB");
-        dataSource.setUser("admin");
-        dataSource.setPassword("admin");
+        dataSource.setUser("grades");
+        dataSource.setPassword("grades");
 
         return dataSource;
     }
