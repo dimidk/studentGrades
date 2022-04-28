@@ -14,12 +14,10 @@ public class StudentService implements StudentDAO {
         this.ds = dataSource;
     }
 
-   // public Student isValidUser(String name) throws SQLException {
    public Users isValidUser(String name,String passwd) throws SQLException {
 
         System.out.println("i am in isValideUser");
 
-        //Student std = new Student();
         Users std = new Users();
         Connection con = ds.getConnection();
         String sql = "select * from users where username = ? and password = ?";
@@ -30,15 +28,11 @@ public class StudentService implements StudentDAO {
         if (!rs.next() ) {
             std.setUsername("-1");
             std.setPassword("-1");
-            //std.setId(-1);
-            //std.setFullName("User not exists");
         }
         else {
             std.setUsername(rs.getString("username"));
             std.setPassword(rs.getString("password"));
             std.setEnabled(rs.getBoolean("enabled"));
-            //std.setId(rs.getInt("id"));
-            //std.setFullName(rs.getString("fullname"));
         }
 
        return std;
@@ -51,7 +45,7 @@ public class StudentService implements StudentDAO {
 
         Connection con = ds.getConnection();
         String sql = "select * from student where username = ?";
-        System.out.println(username);
+//        System.out.println(username);
         PreparedStatement pstmt = con.prepareCall(sql);
         pstmt.setString(1,username);
         ResultSet rs = pstmt.executeQuery();

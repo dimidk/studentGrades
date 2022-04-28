@@ -45,15 +45,12 @@ public class LoginServlet extends HttpServlet {
         studentId = request.getParameter("studentId");
         String passwd = request.getParameter("passwd");
 
-        //System.out.println("checking for " + studentId);
 
         String name;
         Student stud = null;
         Users user = null;
         try {
             user = std.isValidUser(studentId,passwd);
-            //stud = std.isValidUser(studentId);
-            //if (stud.getId() == -1) {
             if (user.getUsername().equals("-1")) {
                 request.setAttribute("name","User no exists");
                 RequestDispatcher view = request.getRequestDispatcher("errorLogin.jsp");
@@ -62,11 +59,11 @@ public class LoginServlet extends HttpServlet {
             else {
                 stud = std.getAuthenticatedUser(user.getUsername());
                 request.setAttribute("name", stud.getFullName());
-                System.out.println(stud.getFullName());
+//                System.out.println(stud.getFullName());
                 List<StudentCourses> studCourses = std.getStudCourses(stud.getId());
-                System.out.println(studCourses.size());
+    //            System.out.println(studCourses.size());
                 List<StudentGrades> studGrades = std.getGrades(stud.getId());
-                System.out.println(studGrades.size());
+    //            System.out.println(studGrades.size());
 
                 request.setAttribute("name",stud.getFullName());
                 request.setAttribute("studCourses",studCourses);
