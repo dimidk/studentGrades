@@ -13,5 +13,6 @@ public interface StudentDAO {
     public float getAvgCourse(String course) throws SQLException;
     public float getMaxCourse(String course) throws SQLException;
     public float getMinCourse(String course) throws SQLException;
+    public float getMedianCourse(String course) throws SQLException
 
 }

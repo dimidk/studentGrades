@@ -161,6 +161,20 @@ public class StudentService implements StudentDAO {
         }
 
         return minGrade;
+    }
+
+    public float getMedianCourse(String course) throws SQLException {
+
+        float medianGrade;
+
+        Connection con = ds.getConnection();
+
+        float max = getMaxCourse(course);
+        float min = getMinCourse(course);
+        medianGrade = (max + min) / 2;
+
+
+        return medianGrade;
 
     }
 }

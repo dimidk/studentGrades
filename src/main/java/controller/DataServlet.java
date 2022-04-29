@@ -29,17 +29,19 @@ public class DataServlet extends HttpServlet {
 
         std = ConfigDatabase.getStudentDAO();
 
-        float max =0,min = 0,avg = 0;
+        float max =0,min = 0,avg = 0,median = 0;
 
         try {
             max = std.getMaxCourse(course);
             min = std.getMinCourse(course);
             avg = std.getAvgCourse(course);
+            median = std.getMedianCourse(course);
 
             request.setAttribute("course",course);
             request.setAttribute("max",max);
             request.setAttribute("min",min);
             request.setAttribute("avg",avg);
+            request.setAttribute("median",median);
 
         } catch (SQLException e) {
             e.printStackTrace();

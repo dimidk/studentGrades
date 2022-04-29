@@ -18,6 +18,7 @@
 <% float max = (float) request.getAttribute("max");%>
 <% float min = (float) request.getAttribute("min");%>
 <% float avg = (float) request.getAttribute("avg");%>
+<% float median = (float) request.getAttribute("median");%>
 <% String course = (String) request.getAttribute("course");%>
 
 <table>
@@ -35,6 +36,10 @@
     <tr>
         <td><%= course %> Avg Grade</td>
         <td><%= avg %></td>
+    </tr>
+    <tr>
+        <td><%= course %> Median Grade</td>
+        <td><%= median %></td>
     </tr>
 </table>
 <hr>
